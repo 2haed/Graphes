@@ -5,11 +5,12 @@ import vk_api
 from config import token
 import matplotlib.pyplot as plt
 
+
 session = vk_api.VkApi(token=token)
 vk = session.get_api()
 
 
-def user_finder(user_id):
+def user_finder(user_id: str) -> str:
     return f"{vk.users.get(user_id=user_id)[0]['first_name']} {vk.users.get(user_id=user_id)[0]['last_name']}"
 
 
