@@ -1,7 +1,7 @@
 import asyncio
 import csv
 import json
-from constants import token
+from data.config import token
 from typing import Optional
 from aiovk import TokenSession, API
 from aiovk.pools import AsyncVkExecuteRequestPool
@@ -37,7 +37,7 @@ async def fetch_users(data_dict: dict) -> dict:
 
 
 async def save_users(data_dict: dict):
-    with open('ready_data.json', 'w') as json_file:
+    with open('data/ready_data.json', 'w') as json_file:
         json.dump(await fetch_users(data_dict), json_file, indent=4)
 
 

@@ -3,7 +3,7 @@ import networkx as nx
 import json
 import vk_api
 from matplotlib import pyplot as plt
-from constants import token
+from data.config import token
 
 
 def draw_graph(G):
@@ -35,7 +35,7 @@ def get_all_centralities(G, vk):
 
 
 def main():
-    with open('ready_data.json', 'r') as json_file:
+    with open('data/ready_data.json', 'r') as json_file:
         data = json.load(json_file)
         data = {key: tuple(val) for key, val in data.items()}
     session = vk_api.VkApi(token=token)
