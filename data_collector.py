@@ -1,8 +1,6 @@
 import asyncio
 import csv
 import json
-import aiovk
-import aiocsv
 from config import token
 from typing import Optional
 from aiovk import TokenSession, API
