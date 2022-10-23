@@ -3,7 +3,7 @@ import networkx as nx
 import json
 import vk_api
 from matplotlib import pyplot as plt
-from config import token
+from constants import token
 
 
 def draw_graph(G):

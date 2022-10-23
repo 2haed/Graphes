@@ -1,7 +1,7 @@
 import asyncio
 import csv
 import json
-from config import token
+from constants import token
 from typing import Optional
 from aiovk import TokenSession, API
 from aiovk.pools import AsyncVkExecuteRequestPool
