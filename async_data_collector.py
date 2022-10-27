@@ -7,11 +7,10 @@ from aiovk import TokenSession, API
 from aiovk.pools import AsyncVkExecuteRequestPool
 
 
-async def load_users(filename="data.csv") -> dict:
+async def load_users(filename="data/data.csv") -> dict:
     with open(filename, encoding='UTF-8-sig', newline='') as csv_file:
         data = csv.reader(csv_file)
         data_dict = {" ".join(row).split(';')[0]: " ".join(row).split(';')[1] for row in data}
-
     return data_dict
 
 
@@ -32,12 +31,11 @@ async def fetch_users(data_dict: dict) -> dict:
     async with AsyncVkExecuteRequestPool() as pool:
         for user_id in data_dict.values():
             responses[user_id] = (pool.add_call("friends.get", token, {"user_id": user_id, "order": "random"}))
-
     return {user_id: response.result["items"] for user_id, response in responses.items() if response.ok}
 
 
 async def save_users(data_dict: dict):
-    with open('data/ready_data.json', 'w') as json_file:
+    with open('data/group.json', 'w') as json_file:
         json.dump(await fetch_users(data_dict), json_file, indent=4)
 
 
