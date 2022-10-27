@@ -21,12 +21,12 @@ def fetch_users():
     json_dict = {}
     for user_id in data_dict:
         request = requests.get(f"{base_url}/friends.get?user_id={user_id}&access_token={token}&v=5.131").json()
-        if list(request.items())[0][0] != 'error':
+        if 'error' in request:
             json_dict[user_id] = request['response']['items']
             for friend_of_user in request['response']['items']:
                 new_request = requests.get(
                     f"{base_url}/friends.get?user_id={friend_of_user}&access_token={token}&v=5.131").json()
-                if list(new_request.items())[0][0] != 'error':
+                if 'error' in new_request:
                     json_dict[friend_of_user] = new_request['response']['items']
                 else:
                     continue
