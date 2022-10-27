@@ -29,20 +29,19 @@ def get_all_centralities(G, vk):
     page_rank = count_centrality(lambda x: nx.pagerank(G), G)
     print(f'Max degree centrality equals: {user_finder(next(iter(centralities_dict)), vk)}')
     print(
-        f'Degree centrality: {centralities_dict}...\n'
-        f'Closeness centrality: {closeness_centrality}...\nBetweeness centrality: {betweeness_centrality}...\n'
-        f'Eigenvector centrality: {eigenvector_centrality}...\nPage Rank: {page_rank}...')
+        f'Degree centrality: {list(centralities_dict.items())[:5]}...\n'
+        f'Closeness centrality: {list(closeness_centrality.items())[:5]}...\nBetweeness centrality: {list(betweeness_centrality.items())[:5]}...\n'
+        f'Eigenvector centrality: {list(eigenvector_centrality.items())[:5]}...\nPage Rank: {list(page_rank.items())[:5]}...')
 
 
 def main():
-    with open('data/ready_data.json', 'r') as json_file:
+    with open('data/group.json', 'r') as json_file:
         data = json.load(json_file)
         data = {key: tuple(val) for key, val in data.items()}
     session = vk_api.VkApi(token=token)
     vk = session.get_api()
     G = nx.DiGraph(data)
     get_all_centralities(G, vk)
-    draw_graph(G)
 
 
 if __name__ == '__main__':
