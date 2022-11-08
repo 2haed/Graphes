@@ -12,7 +12,7 @@ def load_users(filename="data/data.csv") -> list:
 
 
 def save_our_group(dictionary) -> None:
-    with open('data/group.json', 'w') as json_file:
+    with open('data/full_data.json', 'w') as json_file:
         json.dump(dictionary, json_file, indent=4)
 
 

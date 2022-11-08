@@ -32,23 +32,24 @@ def get_all_centralities(G):
     centralities_dict = count_centrality(lambda x: nx.degree_centrality(G), G)
     closeness_centrality = count_centrality(lambda x: nx.closeness_centrality(G), G)
     betweeness_centrality = count_centrality(lambda x: nx.betweenness_centrality(G, k=10), G)
-    eigenvector_centrality = count_centrality(lambda x: nx.eigenvector_centrality(G), G)
-    page_rank = count_centrality(lambda x: nx.pagerank(G), G)
+    eigenvector_centrality_numpy = count_centrality(lambda x: nx.eigenvector_centrality_numpy(G), G)
+    page_rank = count_centrality(lambda x: nx.pagerank(G, max_iter=100), G)
 
     print(
-        f'Degree centrality: {get_max_user(centralities_dict)}, {list(centralities_dict.items())[:5]}...\n'
-        f'Closeness centrality: {get_max_user(closeness_centrality)}, {list(closeness_centrality.items())[:5]}...\n'
-        f'Betweeness centrality: {get_max_user(betweeness_centrality)}, {list(betweeness_centrality.items())[:5]}...\n'
-        f'Eigenvector centrality: {get_max_user(eigenvector_centrality)}, {list(eigenvector_centrality.items())[:5]}...\n'
-        f'Page Rank: {get_max_user(page_rank)}, {list(page_rank.items())[:5]}...')
+        f'Degree centrality: {get_max_user(centralities_dict)}, {list(centralities_dict.items())[:3]} ...\n'
+        f'Closeness centrality: {get_max_user(closeness_centrality)}, {list(closeness_centrality.items())[:3]} ...\n'
+        f'Betweeness centrality: {get_max_user(betweeness_centrality)}, {list(betweeness_centrality.items())[:3]} ...\n'
+        f'Eigenvector centrality: {get_max_user(eigenvector_centrality_numpy)}, {list(eigenvector_centrality_numpy.items())[:3]} ...\n'
+        f'Page Rank: {get_max_user(page_rank)}, {list(page_rank.items())[:3]} ...')
 
 
 def main():
-    with open('data/group.json', 'r') as json_file:
+    with open('data/'+input('Enter filename: '), 'r') as json_file:
         data = json.load(json_file)
         data = {key: tuple(val) for key, val in data.items()}
-    G = nx.DiGraph(data)
+    G = nx.Graph(data)
     get_all_centralities(G)
+    nx.write_gexf(G, 'data/full_data.gexf')
 
 
 if __name__ == '__main__':
